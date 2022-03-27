@@ -72,8 +72,7 @@ public class ClientesDAO {
         
         try {
             //Comando sql
-            String sql = "update tb_clientes set nome=?,rg=?,cpf=?,email=?,telefone=?,celular=?"
-                    + "cep=?,endereco=?,numero=?,complemento=?,bairro=?,cidade=?,estado=? where id=?";
+            String sql = "update tb_clientes set nome=?,rg=?,cpf=?,email=?,telefone=?,celular=?,cep=?,endereco=?,numero=?,complemento=?,bairro=?,cidade=?,estado=? where id=?";
 
             // Conectar o banco de dados e organizar o comando sql
             PreparedStatement stmt = (PreparedStatement) con.prepareStatement(sql);

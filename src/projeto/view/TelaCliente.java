@@ -385,6 +385,11 @@ public TelaCliente() {
                 "Código", "Nome", "RG", "CPF", "E-mail", "Telefone", "Celular", "Cep", "Endereço", "Nº", "Comp", "Bairro", "Cidadel", "UF"
             }
         ));
+        tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaClientes);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -431,9 +436,19 @@ public TelaCliente() {
 
         jButton4.setFont(new java.awt.Font("Akrobat", 2, 14)); // NOI18N
         jButton4.setText("EDITAR");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Akrobat", 2, 14)); // NOI18N
         jButton5.setText("EXCLUIR");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -512,6 +527,58 @@ public TelaCliente() {
            // Evendo para carregar a lista ao carregar o formulário
            listar();
     }//GEN-LAST:event_formWindowActivated
+
+    private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
+       //Pega os dados
+       jTabbedPane1.setSelectedIndex(0);
+       
+       txtcodigo.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),0).toString());
+       txtnome.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),1).toString());
+       txtrg.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),2).toString());
+       txtcpf.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),3).toString());
+       txtemail.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),4).toString());
+       txttelefone.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),5).toString());
+       txtcelular.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),6).toString());
+       txtcep.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),7).toString());
+       txtendereco.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),8).toString());
+       txtnumero.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),9).toString());
+       txtcomplemento.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),10).toString());
+       txtbairro.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),11).toString());
+       txtcidade.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),12).toString());
+       cbuf.setSelectedItem(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),13).toString());
+       
+    }//GEN-LAST:event_tabelaClientesMouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        //Editando todo o objeto cliente      
+            Clientes obj = new Clientes();
+            obj.setNome(txtnome.getText());
+            obj.setRg(txtrg.getText());
+            obj.setCpf(txtcpf.getText());
+            obj.setEmail(txtemail.getText());
+            obj.setBairro(txtbairro.getText());
+            obj.setCidade(txtcidade.getText());
+            obj.setEndereco(txtendereco.getText());
+            obj.setCelular(txtcelular.getText());
+            obj.setCep(txtcep.getText());
+            obj.setNumero(Integer.parseInt(txtnumero.getText()));
+            obj.setComplemento(txtcomplemento.getText());
+            obj.setUf(cbuf.getSelectedItem().toString());
+            obj.setTelefone(txttelefone.getText());
+            obj.setId(Integer.parseInt(txtcodigo.getText()));
+            
+            ClientesDAO dao = new ClientesDAO();
+            dao.alterarCliente(obj);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        //Excluir cadastro     
+            Clientes obj = new Clientes();
+            obj.setId(Integer.parseInt(txtcodigo.getText()));
+            
+            ClientesDAO dao = new ClientesDAO();
+            dao.excluirCliente(obj);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
