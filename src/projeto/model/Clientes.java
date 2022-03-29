@@ -16,7 +16,7 @@ public class Clientes {
     private String nome;
     private String rg;
     private String cpf;
-    private String email;
+    private String email;    
     private String telefone;
     private String celular;
     private String cep;

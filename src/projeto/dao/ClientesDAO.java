@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import projeto.jdbc.ConnectionFactory;
 import projeto.model.Clientes;
 import java.sql.ResultSet;
+import projeto.model.WebServiceCep;
 
 /**
  *
@@ -178,5 +179,125 @@ public class ClientesDAO {
 
     }
 ;
+    
+    //metodo pesquisar cliente
+    
+     public List<Clientes> buscaClientePorNome(String nome) {
+
+        try {
+
+            // Criando a lista
+            List<Clientes> lista = new ArrayList<>();
+
+            //Criando o comando sql, organizar e executar
+            String sql = "select * from tb_clientes where nome like ?";
+
+            PreparedStatement stmt = (PreparedStatement) con.prepareStatement(sql);
+            stmt.setString(1,nome);
+            
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Clientes obj = new Clientes();
+
+                obj.setId(rs.getInt("Id"));
+                obj.setNome(rs.getString("nome"));
+                obj.setRg(rs.getString("rg"));
+                obj.setCpf(rs.getString("cpf"));
+                obj.setEmail(rs.getString("email"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setCelular(rs.getString("celular"));
+                obj.setCep(rs.getString("cep"));
+                obj.setEndereco(rs.getString("endereco"));
+                obj.setNumero(rs.getInt("numero"));
+                obj.setComplemento(rs.getString("complemento"));
+                obj.setBairro(rs.getString("Bairro"));
+                obj.setCidade(rs.getString("cidade"));
+                obj.setUf(rs.getString("estado"));
+
+                lista.add(obj);
+            }
+
+            return lista;
+
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "Erro" + erro);
+            return null;
+
+        }
+
+    }
+;
+
+    public List<Clientes> buscaClientePorNome() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    //metodo consulta cliente por nome
+    public Clientes consultaPorNome(String nome){
+    
+      try {
+
+            String sql = "select * from tb_clientes where nome = ?";
+
+            PreparedStatement stmt = (PreparedStatement) con.prepareStatement(sql);
+            stmt.setString(1,nome);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            Clientes obj = new Clientes();
+
+            if (rs.next()) {
+
+                obj.setId(rs.getInt("Id"));
+                obj.setNome(rs.getString("nome"));
+                obj.setRg(rs.getString("rg"));
+                obj.setCpf(rs.getString("cpf"));
+                obj.setEmail(rs.getString("email"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setCelular(rs.getString("celular"));
+                obj.setCep(rs.getString("cep"));
+                obj.setEndereco(rs.getString("endereco"));
+                obj.setNumero(rs.getInt("numero"));
+                obj.setComplemento(rs.getString("complemento"));
+                obj.setBairro(rs.getString("Bairro"));
+                obj.setCidade(rs.getString("cidade"));
+                obj.setUf(rs.getString("estado"));
+            }
+
+            return obj;
+
+        } catch (Exception erro) {
+
+            JOptionPane.showMessageDialog(null,"Cliente não cadastrado");
+            return null;
+
+        }
+
+    }
+    
+    //Busca por CEP
+    
+
+        public Clientes buscaCep(String cep) {       
+        WebServiceCep webServiceCep = WebServiceCep.searchCep(cep);   
+        Clientes obj = new Clientes();
+
+        if (webServiceCep.wasSuccessful()) {
+            obj.setEndereco(webServiceCep.getLogradouroFull());
+            obj.setCidade(webServiceCep.getCidade());
+            obj.setBairro(webServiceCep.getBairro());
+            obj.setUf(webServiceCep.getUf());
+            return obj;
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro numero: " + webServiceCep.getResulCode());
+            JOptionPane.showMessageDialog(null, "Descrição do erro: " + webServiceCep.getResultText());
+            return null;
+        }
+
+    }
 
 };
