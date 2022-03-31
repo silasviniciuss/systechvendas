@@ -279,10 +279,10 @@ public class ClientesDAO {
 
     }
     
-    //Busca por CEP
     
-
-        public Clientes buscaCep(String cep) {       
+    
+    //Busca por CEP  
+     public Clientes buscaCep(String cep) {       
         WebServiceCep webServiceCep = WebServiceCep.searchCep(cep);   
         Clientes obj = new Clientes();
 
