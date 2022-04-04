@@ -321,7 +321,7 @@ public class FuncionariosDAO {
         try {
 
             //Comando Sql
-            String sql = "Select * from tb_funcionarios where email:? and senha:?";
+            String sql = "select * from tb_funcionarios where email=? and senha=?";
             PreparedStatement stmt = (PreparedStatement) con.prepareStatement(sql);
             stmt.setString(1, email);
             stmt.setString(2, senha);
@@ -332,9 +332,6 @@ public class FuncionariosDAO {
                 JOptionPane.showMessageDialog(null, "Seja bem vindo");
                 TelaMenu tela = new TelaMenu();
                 tela.setVisible(true);
-                
-                System.out.println(email);
-                System.out.println(senha);
             } else {
                 JOptionPane.showMessageDialog(null, "Dados incorretos");
             }
