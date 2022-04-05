@@ -10,6 +10,7 @@ import projeto.jdbc.ConnectionFactory;
 import projeto.model.Funcionarios;
 import java.sql.ResultSet;
 import projeto.model.WebServiceCep;
+import projeto.view.TelaLogin;
 import projeto.view.TelaMenu;
 
 /**
@@ -331,9 +332,12 @@ public class FuncionariosDAO {
             if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Seja bem vindo");
                 TelaMenu tela = new TelaMenu();
+                tela.usuarioLogado = rs.getString("nome");
                 tela.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Dados incorretos");
+                // Quando a senha estiver errada ele abre a tela novamente
+                new TelaLogin().setVisible(true);
             }
 
         } catch (Exception erro) {

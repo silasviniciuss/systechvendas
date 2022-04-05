@@ -66,7 +66,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel2.setText("Systeh V1.0.0");
+        jLabel2.setText("Systech V1.0.0");
 
         txtsenha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 

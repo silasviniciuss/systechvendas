@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import projeto.dao.ClientesDAO;
 import projeto.model.Clientes;
 import java.util.List;
-import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import projeto.model.Utilitarios;
 
